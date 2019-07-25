@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">CestaDeFerramentas</string>
+    <string name="title_activity_principal">Principal</string>
+    <string name="title_activity_calculo">Calculo</string>
+    <string name="login">Login</string>
+    <string name="title_activity_calculo_bytes">CalculoBytes</string>
+
+    <string-array name="tipo">
+        <item>MB</item>
+        <item>GB</item>
+    </string-array>
+</resources>
+

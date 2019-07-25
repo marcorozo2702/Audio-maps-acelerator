@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="20dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".CalculoIMC"
+    tools:showIn="@layout/activity_calculo">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="84dp"
+            android:layout_height="match_parent"
+            android:text="Altura (m)" />
+
+        <EditText
+            android:id="@+id/edtAltura"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:inputType="numberDecimal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="84dp"
+            android:layout_height="match_parent"
+            android:text="Peso (kg)" />
+
+        <EditText
+            android:id="@+id/edtPeso"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:inputType="numberDecimal" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@color/colorPrimary"
+        android:onClick="Calcular"
+        android:text="Calcular imc"
+        android:layout_gravity="center"
+        android:textColor="#ffffff" />
+
+    <TextView
+        android:id="@+id/Resultado"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="Resultado"
+        android:layout_gravity="center"
+        android:textAlignment="center" />
+</LinearLayout>
