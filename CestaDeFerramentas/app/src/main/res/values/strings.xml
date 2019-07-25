@@ -5,6 +5,12 @@
     <string name="login">Login</string>
     <string name="title_activity_calculo_bytes">CalculoBytes</string>
 
+
+
+
+
+
+
     <string-array name="tipo">
         <item>MB</item>
         <item>GB</item>
