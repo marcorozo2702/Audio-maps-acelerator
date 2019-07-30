@@ -25,6 +25,7 @@
         android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="E-mail"
+        android:text="marco@senac.br"
         android:inputType="textEmailAddress"
         android:textColorHighlight="#009688"
         android:textColorLink="#009688" />
@@ -35,6 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:hint="Senha"
+        android:text="123"
         android:ems="10"
         android:inputType="textPassword" />
 

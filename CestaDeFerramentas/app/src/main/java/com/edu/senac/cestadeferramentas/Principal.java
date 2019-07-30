@@ -42,4 +42,16 @@ public class Principal extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void irParaSobre(View V){
+        //Mandando para uma próxima tela
+        Intent i=new Intent(this, Sobre.class);
+        startActivity(i);
+    }
+
+    public void irParaLista(View V){
+        //Mandando para uma próxima tela
+        Intent i=new Intent(this, ListaProdutos.class);
+        startActivity(i);
+    }
+
 }
