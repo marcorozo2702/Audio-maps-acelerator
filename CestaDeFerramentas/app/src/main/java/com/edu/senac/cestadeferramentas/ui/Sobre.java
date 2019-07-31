@@ -1,4 +1,4 @@
-package com.edu.senac.cestadeferramentas;
+package com.edu.senac.cestadeferramentas.ui;
 
 import android.Manifest;
 import android.content.Intent;
@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
+import com.edu.senac.cestadeferramentas.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 

@@ -14,6 +14,12 @@
     </string-array>
     <string name="title_activity_sobre">Sobre</string>
     <string name="title_activity_lista_produtos">ListaProdutos</string>
-    <string name="title_activity_produto_ok">ProdutoOK</string>
+    <string name="title_activity_produto">Produto</string>
+
+     <string-array name="status">
+         <item>Comprado</item>
+         <item>Não comprado</item>
+     </string-array>
+
 </resources>
 

@@ -18,28 +18,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Produto" />
+        <activity android:name=".ui.Produto" />
         <activity
-            android:name=".ListaProdutos"
+            android:name=".ui.ListaProdutos"
             android:label="@string/title_activity_lista_produtos"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Sobre"
+            android:name=".ui.Sobre"
             android:label="Sobre"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".CalculoBytes"
+            android:name=".ui.CalculoBytes"
             android:label="Conversão Unidades Armazenamento"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".CalculoIMC"
+            android:name=".ui.CalculoIMC"
             android:label="Calculo I.M.C"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Principal"
+            android:name=".ui.Principal"
             android:label="Home"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

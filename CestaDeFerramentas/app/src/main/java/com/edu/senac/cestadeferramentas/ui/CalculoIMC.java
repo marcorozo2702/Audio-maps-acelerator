@@ -1,7 +1,8 @@
-package com.edu.senac.cestadeferramentas;
+package com.edu.senac.cestadeferramentas.ui;
 
 import android.os.Bundle;
 
+import com.edu.senac.cestadeferramentas.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 

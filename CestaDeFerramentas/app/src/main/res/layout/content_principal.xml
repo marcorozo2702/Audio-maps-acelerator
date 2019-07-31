@@ -9,7 +9,7 @@
     android:paddingEnd="20dp"
     android:paddingStart="20dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".Principal"
+    tools:context=".ui.Principal"
     tools:showIn="@layout/activity_principal">
 
     <LinearLayout
@@ -70,17 +70,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_weight="1"
-            android:background="@color/colorPrimaryDark"
-            android:onClick="irParaSobre"
-            android:text="Sobre"
-            android:textColor="#ffffff" />
-    </LinearLayout>
+        android:orientation="horizontal"/>
 </LinearLayout>
