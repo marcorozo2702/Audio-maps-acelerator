@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.edu.senac.cestadeferramentas.R;
+import com.edu.senac.cestadeferramentas.helper.AdapterList;
 import com.edu.senac.cestadeferramentas.helper.DatabaseHelper;
 import com.edu.senac.cestadeferramentas.model.Produto;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -13,11 +14,15 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListaProdutos extends AppCompatActivity {
 
+    ListView listaProdutos;
+    List<Produto> produtos;
     DatabaseHelper databaseHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,14 +40,23 @@ public class ListaProdutos extends AppCompatActivity {
         });
 
         databaseHelper=new DatabaseHelper(this);
+
+        produtos = new ArrayList<>();
+        AdapterList adapterList=new AdapterList(produtos, this);
+        listaProdutos= findViewById(R.id.lista);
+        listaProdutos.setAdapter(adapterList);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        List<Produto>listraPro=databaseHelper.buscarTodos();
-        for (Produto produto:listraPro){
-            Log.e("produto", "Id " +produto.getCodigo()+" Nome: " +produto.getNome());
-        }
+
+        produtos=null;
+        produtos=databaseHelper.buscarTodos();
+        AdapterList adapterList = (AdapterList) listaProdutos.getAdapter();
+
+        adapterList.atualizarProdutos(produtos);
+
+
     }
 }

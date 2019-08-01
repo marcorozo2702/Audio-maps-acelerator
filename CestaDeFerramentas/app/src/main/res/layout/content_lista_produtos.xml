@@ -8,4 +8,10 @@
     tools:context=".ui.ListaProdutos"
     tools:showIn="@layout/activity_lista_produtos">
 
+    <ListView
+        android:id="@+id/lista"
+        android:layout_width="395dp"
+        android:layout_height="659dp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
