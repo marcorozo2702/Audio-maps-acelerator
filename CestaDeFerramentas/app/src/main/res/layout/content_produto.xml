@@ -8,7 +8,7 @@
     android:paddingRight="25dp"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ui.Produto"
+    tools:context=".ui.ProdutoActivity"
     tools:showIn="@layout/activity_produto">
 
     <ImageView
@@ -58,7 +58,7 @@
             android:text="Estoque: " />
 
         <EditText
-            android:id="@+id/Quantidade"
+            android:id="@+id/quantidadeProduto"
             android:layout_width="match_parent"
             android:layout_height="39dp"
             android:layout_marginTop="5dp"
@@ -81,7 +81,7 @@
             android:text="Status: " />
 
         <Spinner
-            android:id="@+id/opcoeStatus"
+            android:id="@+id/statusProduto"
             android:layout_width="match_parent"
             android:layout_height="29dp"
             android:layout_weight="1"
@@ -109,7 +109,7 @@
             />
 
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/btnExcluir"
             android:layout_width="wrap_content"
             android:layout_height="36dp"
             android:layout_marginLeft="4dp"
@@ -117,9 +117,9 @@
             android:layout_marginBottom="1dp"
             android:layout_weight="1"
             android:background="@android:color/holo_red_dark"
-            android:text="Cancelar"
+            android:text="Deletar"
             android:textColor="@android:color/background_light"
-            android:onClick="calcelarCadastro"
+            android:onClick="excluirCadastro"
             />
     </LinearLayout>
 

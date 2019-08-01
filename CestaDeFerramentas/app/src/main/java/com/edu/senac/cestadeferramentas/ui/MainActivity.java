@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.edu.senac.cestadeferramentas.R;
+import com.edu.senac.cestadeferramentas.helper.DatabaseHelper;
 import com.edu.senac.cestadeferramentas.model.Usuario;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,25 +30,19 @@ public class MainActivity extends AppCompatActivity {
 
     public void irParaPrincipal(View v) {
 
-        Usuario usuario = new Usuario();
-        usuario.setCodigo(1);
-        usuario.setEmail("marco@...");
-        usuario.setSenha("senha");
+        DatabaseHelper databaseHelper=new DatabaseHelper(this);
 
         //atribui o valor do campo da tela para a variavel do tipo String
         String strEmail = editEmail.getText().toString();
         String strSenha = editSenha.getText().toString();
 
-
-        if (strEmail.equals(usuario.getEmail()) && strSenha.equals(usuario.getSenha())) {
-            //Mandando para uma próxima tela
-            Intent i = new Intent(this, Principal.class);
-            startActivity(i);
-
-            //mensagem para exibição de informações
-            Toast.makeText(this, "Logado.", Toast.LENGTH_SHORT).show();
+        Usuario usuario=databaseHelper.validarUsuario(strEmail, strSenha);
+        if (usuario != null){
+            Toast.makeText(this, "Bem-vindo "+usuario.getEmail(), Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, Principal.class));
+            finish();
         } else {
-            Toast.makeText(this, "Falha ao logar.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Usuario e senha invalidos", Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -10,23 +10,31 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.edu.senac.cestadeferramentas.R;
+import com.edu.senac.cestadeferramentas.helper.DatabaseHelper;
+import com.edu.senac.cestadeferramentas.model.Produto;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Produto extends AppCompatActivity {
+public class ProdutoActivity extends AppCompatActivity {
     ImageView AddImagem;
-    EditText nomeProduto, Quantidade;
-
+    EditText nomeProduto, quantidadeProduto;
+    Spinner statusProduto;
+    Button btnExcluir;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +42,15 @@ public class Produto extends AppCompatActivity {
 
         AddImagem = findViewById(R.id.AddImagem);
         nomeProduto=findViewById(R.id.nomeProduto);
-        Quantidade=findViewById(R.id.Quantidade);
+        quantidadeProduto=findViewById(R.id.quantidadeProduto);
+        statusProduto=findViewById(R.id.statusProduto);
+        btnExcluir=findViewById(R.id.btnExcluir);
+
+        //OCULTA
+        btnExcluir.setVisibility(View.GONE);
+
+        //VISIVEL
+        //btnExcluir.setVisibility(View.VISIBLE);
 
 
     }
@@ -76,10 +92,10 @@ public class Produto extends AppCompatActivity {
     public String validarCampos(){
         if (nomeProduto.getText().toString().trim().length() ==0){
             return "Informe o nome";
-        } if (Quantidade .getText().toString().trim().length() ==0){
+        } if (quantidadeProduto .getText().toString().trim().length() ==0){
             return "informe a quantidade";
         } else{
-            int quantidade = Integer.parseInt(Quantidade.getText().toString());
+            int quantidade = Integer.parseInt(quantidadeProduto.getText().toString());
             if (quantidade ==0){
                 return "informe a quantidade";
             }
@@ -93,15 +109,46 @@ public class Produto extends AppCompatActivity {
         //caso seja verdadeiro salvar os campos
         if(mensagem.length()==0){
             //chama a função para salvar os campos
-            salvar();
+            salvar(v);
         } else {
             //chama a função para exibir as mensagens
             mensagemErro(mensagem);
         }
     }
 
-    public void salvar(){
+    public void salvar(View v){
+        String mensagem = validarCampos();
+        if (mensagem.equals("")){
+            DatabaseHelper databaseHelper = new DatabaseHelper(this);
 
+            Produto pro=new Produto();
+            pro.setFoto(getImagem());
+            pro.setNome(nomeProduto.getText().toString());
+            pro.setQuantidade(Integer.parseInt(quantidadeProduto.getText().toString()));
+            pro.setStatus(statusProduto.getSelectedItem().toString().equals("COMPRADO")?"C":"N");
+
+            databaseHelper.salvarProduto(pro);
+            finish();
+        } else {
+            mensagemErro(mensagem);
+        }
+    }
+
+    public void excluirCadastro(View v){
+        DatabaseHelper databaseHelper=new DatabaseHelper(this);
+
+    }
+
+    public String getImagem(){
+        Bitmap bitmap = ((BitmapDrawable)AddImagem.getDrawable()).getBitmap();
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+        bitmap.compress(Bitmap.CompressFormat.PNG,100, byteArrayOutputStream);
+
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
+
+        return Base64.encodeToString(byteArray, Base64.DEFAULT);
     }
 
     public void mensagemErro(String mensagem){
@@ -112,13 +159,13 @@ public class Produto extends AppCompatActivity {
         //define um botão como positivo
         builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface arg0, int arg1) {
-                Toast.makeText(Produto.this, "positivo" +arg1, Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProdutoActivity.this, "positivo" +arg1, Toast.LENGTH_SHORT).show();
             }
         });
         //define um botão como negativo.
         builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface arg0, int arg1) {
-                Toast.makeText(Produto.this, "negativo=" +arg1, Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProdutoActivity.this, "negativo=" +arg1, Toast.LENGTH_SHORT).show();
             }
         });
         //cria o AlertDialog

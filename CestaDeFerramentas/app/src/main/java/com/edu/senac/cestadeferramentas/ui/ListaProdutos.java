@@ -4,15 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.edu.senac.cestadeferramentas.R;
+import com.edu.senac.cestadeferramentas.helper.DatabaseHelper;
+import com.edu.senac.cestadeferramentas.model.Produto;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.View;
+
+import java.util.List;
 
 public class ListaProdutos extends AppCompatActivity {
 
+    DatabaseHelper databaseHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,10 +30,19 @@ public class ListaProdutos extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity (new Intent(ListaProdutos.this, Produto.class)) ;
+                startActivity (new Intent(ListaProdutos.this, ProdutoActivity.class)) ;
             }
         });
-    }
-    
 
+        databaseHelper=new DatabaseHelper(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        List<Produto>listraPro=databaseHelper.buscarTodos();
+        for (Produto produto:listraPro){
+            Log.e("produto", "Id " +produto.getCodigo()+" Nome: " +produto.getNome());
+        }
+    }
 }

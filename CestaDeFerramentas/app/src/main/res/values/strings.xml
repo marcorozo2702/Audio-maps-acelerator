@@ -17,8 +17,8 @@
     <string name="title_activity_produto">Produto</string>
 
      <string-array name="status">
-         <item>Comprado</item>
-         <item>Não comprado</item>
+         <item>COMPRADO</item>
+         <item>NAO COMPRADO</item>
      </string-array>
 
 </resources>
