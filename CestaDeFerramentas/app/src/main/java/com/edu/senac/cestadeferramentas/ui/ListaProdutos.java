@@ -14,7 +14,9 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +47,17 @@ public class ListaProdutos extends AppCompatActivity {
         AdapterList adapterList=new AdapterList(produtos, this);
         listaProdutos= findViewById(R.id.lista);
         listaProdutos.setAdapter(adapterList);
+
+
+        final Intent intent=new Intent(this, ProdutoActivity.class);
+
+        listaProdutos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                intent.putExtra("produto", produtos.get(i));
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.edu.senac.cestadeferramentas.R;
 import com.edu.senac.cestadeferramentas.helper.DatabaseHelper;
 import com.edu.senac.cestadeferramentas.model.Produto;
+import com.j256.ormlite.stmt.query.In;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -46,11 +47,18 @@ public class ProdutoActivity extends AppCompatActivity {
         statusProduto=findViewById(R.id.statusProduto);
         btnExcluir=findViewById(R.id.btnExcluir);
 
-        //OCULTA
-        btnExcluir.setVisibility(View.GONE);
 
-        //VISIVEL
-        //btnExcluir.setVisibility(View.VISIBLE);
+
+        Intent i = getIntent();
+        Produto pro = (Produto) i.getSerializableExtra("produto");
+        if (pro!=null){
+            btnExcluir.setVisibility(View.VISIBLE);
+            Toast.makeText(this,"Editando "+pro.getNome(),Toast.LENGTH_SHORT).show();
+        } else {
+            btnExcluir.setVisibility(View.GONE);
+        }
+        //GONE = cultar//VISIBLE= visivel
+
 
 
     }
