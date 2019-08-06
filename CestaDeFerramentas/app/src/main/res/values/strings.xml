@@ -16,10 +16,18 @@
     <string name="title_activity_lista_produtos">ListaProdutos</string>
     <string name="title_activity_produto">Produto</string>
 
-     <string-array name="status">
-         <item>COMPRADO</item>
-         <item>NAO COMPRADO</item>
-     </string-array>
+    <string-array name="status">
+        <item>COMPRADO</item>
+        <item>NAO COMPRADO</item>
+    </string-array>
+
+    <string-array name="unidade">
+        <item>Jogo</item>
+        <item>Peça</item>
+        <item>Caixa (12 und)</item>
+    </string-array>
+    <string name="title_activity_auto">AutoActivity</string>
+    <string name="title_activity_line_auto">LineAutoActivity</string>
 
 </resources>
 

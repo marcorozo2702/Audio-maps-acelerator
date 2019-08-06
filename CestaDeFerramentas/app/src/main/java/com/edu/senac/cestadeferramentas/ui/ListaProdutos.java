@@ -32,12 +32,15 @@ public class ListaProdutos extends AppCompatActivity {
         setContentView(R.layout.activity_lista_produtos);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        final Intent intent=new Intent(this, ProdutoActivity.class);
+
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity (new Intent(ListaProdutos.this, ProdutoActivity.class)) ;
+                intent.removeExtra("produto");
+                startActivity (intent);
             }
         });
 
@@ -49,7 +52,6 @@ public class ListaProdutos extends AppCompatActivity {
         listaProdutos.setAdapter(adapterList);
 
 
-        final Intent intent=new Intent(this, ProdutoActivity.class);
 
         listaProdutos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

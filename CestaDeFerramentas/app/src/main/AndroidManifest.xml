@@ -18,6 +18,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".ui.AutoActivity"
+            android:label="@string/title_activity_auto"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.ProdutoActivity" />
         <activity
             android:name=".ui.ListaProdutos"

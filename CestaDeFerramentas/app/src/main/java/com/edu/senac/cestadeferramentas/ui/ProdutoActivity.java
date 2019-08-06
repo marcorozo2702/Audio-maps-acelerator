@@ -8,8 +8,10 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -36,6 +38,7 @@ public class ProdutoActivity extends AppCompatActivity {
     EditText nomeProduto, quantidadeProduto;
     Spinner statusProduto;
     Button btnExcluir;
+    Produto pro;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,16 +53,47 @@ public class ProdutoActivity extends AppCompatActivity {
 
 
         Intent i = getIntent();
+
+        pro = (Produto) i.getSerializableExtra("produto");
         Produto pro = (Produto) i.getSerializableExtra("produto");
         if (pro!=null){
             btnExcluir.setVisibility(View.VISIBLE);
-            Toast.makeText(this,"Editando "+pro.getNome(),Toast.LENGTH_SHORT).show();
+            nomeProduto.setText(pro.getNome());
+            quantidadeProduto.setText(Integer.toString(pro.getQuantidade()));
+            statusProduto.setSelection(pro.getStatus().equals("C")?0:1);
+
+            byte[] decodedString = Base64.decode(pro.getFoto(), Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+            AddImagem.setImageBitmap(decodedByte);
         } else {
             btnExcluir.setVisibility(View.GONE);
         }
-        //GONE = cultar//VISIBLE= visivel
+        //GONE = oculto//VISIBLE= visivel
+    }
 
+    public void onClickWhatsApp(View view) {
 
+        PackageManager pm=getPackageManager();
+        try {
+
+            Intent waIntent = new Intent(Intent.ACTION_SEND);
+            waIntent.setType("text/plain");
+            String text = "Por favor compre" +
+                    " "+pro.getQuantidade()+" unidade do produto "+pro.getNome();
+
+            PackageInfo info=pm.getPackageInfo("com.whatsapp",
+                    PackageManager.GET_META_DATA);
+            waIntent.setPackage("com.whatsapp");
+
+            waIntent.putExtra(Intent.EXTRA_TEXT, text);
+            startActivity(Intent.createChooser(waIntent, "Share with"));
+
+        } catch (PackageManager.NameNotFoundException e) {
+            Toast.makeText(this, "WhatsApp not Installed",
+                    Toast.LENGTH_SHORT)
+                    .show();
+        }
 
     }
 
@@ -116,9 +150,16 @@ public class ProdutoActivity extends AppCompatActivity {
         String mensagem=validarCampos();
         //caso seja verdadeiro salvar os campos
         if(mensagem.length()==0){
+
+            if ( pro!=null){
+                //função a função que faz o update nos produtos
+                atualizarCadastro(v);
+            }
             //chama a função para salvar os campos
             salvar(v);
+
         } else {
+
             //chama a função para exibir as mensagens
             mensagemErro(mensagem);
         }
@@ -142,9 +183,21 @@ public class ProdutoActivity extends AppCompatActivity {
         }
     }
 
-    public void excluirCadastro(View v){
+    public void atualizarCadastro(View v){
         DatabaseHelper databaseHelper=new DatabaseHelper(this);
 
+        pro.setFoto(getImagem());
+        pro.setNome(nomeProduto.getText().toString());
+        pro.setQuantidade(Integer.parseInt(quantidadeProduto.getText().toString()));
+        pro.setStatus(statusProduto.getSelectedItem().toString().equals("COMPRADO")?"C":"N");
+        databaseHelper.update(pro);
+        finish();
+    }
+
+    public void excluirCadastro(View v){
+        DatabaseHelper databaseHelper=new DatabaseHelper(this);
+        databaseHelper.removerProduto(pro);
+        finish();
     }
 
     public String getImagem(){
