@@ -12,7 +12,7 @@ public class Auto implements Serializable {
     private Integer codigo;
 
     @DatabaseField(canBeNull = false)
-    private Integer referencia;
+    private String referencia;
 
     @DatabaseField(canBeNull = false)
     private String nome;
@@ -40,11 +40,11 @@ public class Auto implements Serializable {
         this.codigo = codigo;
     }
 
-    public Integer getReferencia() {
+    public String getReferencia() {
         return referencia;
     }
 
-    public void setReferencia(Integer referencia) {
+    public void setReferencia(String referencia) {
         this.referencia = referencia;
     }
 

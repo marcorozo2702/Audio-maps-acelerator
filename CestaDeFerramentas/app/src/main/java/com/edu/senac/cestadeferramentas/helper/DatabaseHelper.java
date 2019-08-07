@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.edu.senac.cestadeferramentas.model.Auto;
 import com.edu.senac.cestadeferramentas.model.Produto;
 import com.edu.senac.cestadeferramentas.model.Usuario;
 import com.edu.senac.cestadeferramentas.model.Produto;
@@ -26,6 +27,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private Dao<Usuario, Integer> usuarioDao = null;
     private Dao<Produto, Integer> produtoDao = null;
+    private Dao<Auto, Integer> autoDao = null;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -121,4 +123,23 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         }
         return new ArrayList<>();
     }
+
+
+    //---------------------------------------------- atividade
+
+
+    public Dao<Auto, Integer> getAutoDao() throws SQLException {
+        if (autoDao == null) {
+            autoDao = getDao(Auto.class);
+        }
+        return autoDao;
+    }
+
+    public void salvarPeca(Auto auto) {
+        try {
+            getAutoDao().create(auto);
+        } catch (Exception e) {
+            Log.e("banco", "Erro ao salvar produto");
+        }
+}
 }

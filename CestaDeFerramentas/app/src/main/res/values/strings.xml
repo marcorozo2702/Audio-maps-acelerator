@@ -22,12 +22,13 @@
     </string-array>
 
     <string-array name="unidade">
-        <item>Jogo</item>
-        <item>Peça</item>
-        <item>Caixa (12 und)</item>
+        <item>JG</item>
+        <item>PC</item>
+        <item>CX</item>
     </string-array>
     <string name="title_activity_auto">AutoActivity</string>
     <string name="title_activity_line_auto">LineAutoActivity</string>
+    <string name="title_activity_lista_auto">ListaAutoActivity</string>
 
 </resources>
 
