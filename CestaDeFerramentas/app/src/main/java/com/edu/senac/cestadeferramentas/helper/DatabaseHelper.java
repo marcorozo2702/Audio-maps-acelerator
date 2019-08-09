@@ -39,6 +39,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         try {
             TableUtils.createTable(connectionSource, Usuario.class);
             TableUtils.createTable(connectionSource, Produto.class);
+            TableUtils.createTable(connectionSource, Auto.class);
+
 
             Usuario usuario = new Usuario();
             usuario.setEmail("marco@senac.br");
@@ -57,6 +59,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         try {
             TableUtils.dropTable(connectionSource, Usuario.class, true);
             TableUtils.dropTable(connectionSource, Produto.class, true);
+            TableUtils.dropTable(connectionSource, Auto.class, true);
+
             onCreate(sqLiteDatabase, connectionSource);
         } catch (Exception e) {
             Log.e("banco", "Erro aso criar banco");
@@ -138,8 +142,36 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void salvarPeca(Auto auto) {
         try {
             getAutoDao().create(auto);
+            Log.e("banco", ""+getAutoDao().countOf());
         } catch (Exception e) {
-            Log.e("banco", "Erro ao salvar produto");
+            Log.e("banco", "Erro ao salvar pc");
         }
 }
+
+    public void removerPeca(Auto auto){
+        try {
+            getAutoDao().delete(auto);
+        } catch (Exception e) {
+            Log.e("banco", "Erro ao remover pc");
+        }
+    }
+
+    public void updatePeca(Auto auto){
+        try {
+            getAutoDao().update(auto);
+        } catch (Exception e) {
+            Log.e("banco", "Erro ao atualizar pc");
+        }
+    }
+
+    public List<Auto> buscarTodasPecas(){
+
+        List<Auto> autos=null;
+        try {
+            return getAutoDao().queryBuilder().query();
+        } catch (Exception e) {
+            Log.e("banco", "Erro ao buscar pc AAAAAAAAA");
+        }
+        return new ArrayList<>();
+    }
 }

@@ -76,7 +76,7 @@ public class Principal extends AppCompatActivity {
 
     public void irParaAtividade(View V){
         //Mandando para uma próxima tela
-        Intent i=new Intent(this, AutoActivity.class);
+        Intent i=new Intent(this, ListaAutoActivity.class);
         startActivity(i);
     }
 

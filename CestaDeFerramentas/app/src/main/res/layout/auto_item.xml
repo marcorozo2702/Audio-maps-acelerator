@@ -3,10 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="110dp"
+    android:background="#808080"
     android:orientation="vertical"
     android:paddingLeft="10dp"
-    android:paddingRight="10dp"
-    android:layout_height="90dp" >
+    android:paddingRight="10dp">
 
     <LinearLayout
         android:layout_width="392dp"
@@ -16,9 +17,13 @@
         <TextView
             android:id="@+id/nomePeca"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="32dp"
+            android:fontFamily="monospace"
+            android:gravity="center"
             android:text="Nome XXX"
-            android:textStyle="normal" />
+            android:textColor="@android:color/background_light"
+            android:textSize="20sp"
+            android:textStyle="normal|bold" />
     </LinearLayout>
 
     <LinearLayout
@@ -45,13 +50,15 @@
                     android:layout_height="20dp"
                     android:text="Ref:"
                     android:textAlignment="viewStart"
-                    android:textStyle="bold" />
+                    android:textColor="@android:color/background_light" />
 
                 <TextView
                     android:id="@+id/referenciaPeca"
                     android:layout_width="158dp"
                     android:layout_height="match_parent"
-                    android:text="00.000" />
+                    android:text="00.000"
+                    android:textColor="@android:color/background_light"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -65,19 +72,23 @@
                     android:layout_width="108dp"
                     android:layout_height="wrap_content"
                     android:text="Qtde. Estoque:"
-                    android:textStyle="bold" />
+                    android:textColor="@android:color/background_light" />
 
                 <TextView
                     android:id="@+id/quantidadePeca"
                     android:layout_width="42dp"
                     android:layout_height="wrap_content"
-                    android:text="0" />
+                    android:text="0"
+                    android:textColor="@android:color/background_light"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/unidadePeca"
                     android:layout_width="49dp"
                     android:layout_height="wrap_content"
-                    android:text="und" />
+                    android:text="und"
+                    android:textColor="@android:color/background_light"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
@@ -93,13 +104,15 @@
                     android:layout_height="20dp"
                     android:text="Valor:"
                     android:textAlignment="viewStart"
-                    android:textStyle="bold" />
+                    android:textColor="@android:color/background_light" />
 
                 <TextView
                     android:id="@+id/valorPeca"
                     android:layout_width="146dp"
                     android:layout_height="match_parent"
-                    android:text="000" />
+                    android:text="000"
+                    android:textColor="@android:color/background_light"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 

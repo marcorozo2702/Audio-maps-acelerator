@@ -116,7 +116,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_weight="1"
-            android:text=" "
+            android:text=""
             android:inputType="number"/>
 
         <TextView
@@ -159,8 +159,7 @@
                 android:layout_height="29dp"
                 android:text="Valor: "
                 android:textColor="@android:color/background_dark"
-                android:textStyle="bold"
-                android:inputType="number"/>
+                android:textStyle="bold"/>
 
             <EditText
                 android:id="@+id/edtValor"
@@ -168,6 +167,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text=" "
+                android:inputType="number"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -191,6 +191,17 @@
             android:textColor="@android:color/background_light" />
 
         <Button
+            android:id="@+id/btnAtualizar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@android:color/holo_blue_bright"
+            android:text="Atualizar"
+            android:onClick="atualizarCadastroPeca"
+            android:textColor="@android:color/background_light" />
+
+        <Button
             android:id="@+id/btnDeletar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -198,6 +209,7 @@
             android:layout_weight="1"
             android:background="@android:color/holo_red_light"
             android:text="Deletar"
+            android:onClick="excluirCadastroPeca"
             android:textColor="@android:color/background_light" />
     </LinearLayout>
 </LinearLayout>

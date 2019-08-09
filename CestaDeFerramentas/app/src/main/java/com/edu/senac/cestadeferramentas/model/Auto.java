@@ -27,7 +27,7 @@ public class Auto implements Serializable {
     private Integer quantidade;
 
     @DatabaseField(canBeNull = false)
-    private String unidade;
+    private Integer unidade;
 
     @DatabaseField(canBeNull = false)
     private Float valor;
@@ -80,11 +80,11 @@ public class Auto implements Serializable {
         this.quantidade = quantidade;
     }
 
-    public String getUnidade() {
+    public Integer getUnidade() {
         return unidade;
     }
 
-    public void setUnidade(String unidade) {
+    public void setUnidade(Integer unidade) {
         this.unidade = unidade;
     }
 

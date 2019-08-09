@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.edu.senac.cestadeferramentas.R;
 import com.edu.senac.cestadeferramentas.model.Auto;
+import com.edu.senac.cestadeferramentas.model.Produto;
 
 import org.w3c.dom.Text;
 
@@ -55,8 +56,24 @@ public class AdapterAuto extends BaseAdapter {
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
         imagem.setImageBitmap(decodedByte);
-
+        txNome.setText(auto.getNome());
+        referencia.setText(auto.getReferencia());
+        quantidade.setText(Integer.toString(auto.getQuantidade()));
+        if(auto.getUnidade() == 0){
+            unidade.setText("JG");
+        } if (auto.getUnidade()==1){
+            unidade.setText("PC");
+        } else {
+            unidade.setText("CX");
+        }
+        valor.setText(Float.toString(auto.getValor()));
 
         return view;
+    }
+
+    public void atualizarAutos(List<Auto> novosAutos){
+        this.autoList.clear();
+        this.autoList.addAll(novosAutos);
+        notifyDataSetChanged();
     }
 }

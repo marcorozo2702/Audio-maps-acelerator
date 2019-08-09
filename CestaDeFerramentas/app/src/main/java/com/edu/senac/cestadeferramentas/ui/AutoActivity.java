@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -68,14 +69,24 @@ public class AutoActivity extends AppCompatActivity {
         btnDeletar = findViewById(R.id.btnDeletar);
 
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        Intent i = getIntent();
+
+        atm = (Auto) i.getSerializableExtra("auto");
+        Auto atm = (Auto) i.getSerializableExtra("auto");
+        if (atm!=null){
+            btnDeletar.setVisibility(View.VISIBLE);
+            edtPeca.setText(atm.getNome());
+            edtReferencia.setText(atm.getReferencia());
+            edtQuantidade.setText(Integer.toString(atm.getQuantidade()));
+            edtValor.setText(Float.toString(atm.getValor()));
+            edtUnidade.setSelection(atm.getUnidade());
+
+            byte[] decodedString = Base64.decode(atm.getImagem(), Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+            imagemPeca.setImageBitmap(decodedByte);
+        } else {btnDeletar.setVisibility(View.GONE);
+        }
     }
 
     public void selecionarImagem(View view) {
@@ -125,11 +136,6 @@ public class AutoActivity extends AppCompatActivity {
             return "Informe a peça";
         } if (edtQuantidade.getText().toString().trim().length() ==0){
             return "informe a quantidade";
-        } else{
-            int quantidade = Integer.parseInt(edtQuantidade.getText().toString());
-            if (quantidade ==0){
-                return "informe a quantidade";
-            }
         }
         return "";
     }
@@ -138,14 +144,14 @@ public class AutoActivity extends AppCompatActivity {
         //verifica os campos
         String mensagem=validarCampos();
         //caso seja verdadeiro salvar os campos
-        if(mensagem.length()==0){
+        if(mensagem.equals("")){
 
-            /*if ( atm!=null){
+            if ( atm!=null){
                 //função a função que faz o update nos produtos
-                atualizarCadastro(v);
-            }*/
+                atualizarCadastroPeca(v);
+            }
             //chama a função para salvar os campos
-            salvar(v);
+            this.salvar(v);
 
         } else {
 
@@ -163,8 +169,8 @@ public class AutoActivity extends AppCompatActivity {
             atm.setNome(edtPeca.getText().toString());
             atm.setReferencia(edtReferencia.getText().toString());
             atm.setDescricao(edtDescricao.getText().toString());
-            atm.setQuantidade(Integer.parseInt(edtQuantidade.getText().toString()));
-            atm.setUnidade(edtUnidade.getSelectedItem().toString());
+            atm.setQuantidade(Integer.parseInt(edtQuantidade.getText().toString().trim()));
+            atm.setUnidade(edtUnidade.getSelectedItemPosition());
             atm.setValor(Float.parseFloat(edtValor.getText().toString()));
 
             databaseHelper.salvarPeca(atm);
@@ -172,6 +178,27 @@ public class AutoActivity extends AppCompatActivity {
         } else {
             mensagemErro(mensagem);
         }
+    }
+
+
+    public void atualizarCadastroPeca(View v){
+        DatabaseHelper databaseHelper=new DatabaseHelper(this);
+
+        atm.setImagem(getImagem());
+        atm.setNome(edtPeca.getText().toString());
+        atm.setReferencia(edtReferencia.getText().toString());
+        atm.setDescricao(edtDescricao.getText().toString());
+        atm.setQuantidade(Integer.parseInt(edtQuantidade.getText().toString().trim()));
+        atm.setUnidade(edtUnidade.getSelectedItemPosition());
+        atm.setValor(Float.parseFloat(edtValor.getText().toString()));
+        databaseHelper.updatePeca(atm);
+        finish();
+    }
+
+    public void excluirCadastroPeca(View v){
+        DatabaseHelper databaseHelper=new DatabaseHelper(this);
+        databaseHelper.removerPeca(atm);
+        finish();
     }
 
 
