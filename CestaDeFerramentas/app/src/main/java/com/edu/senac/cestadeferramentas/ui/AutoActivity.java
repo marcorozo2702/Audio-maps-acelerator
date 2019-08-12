@@ -47,7 +47,7 @@ public class AutoActivity extends AppCompatActivity {
     EditText edtReferencia, edtQuantidade, edtPeca, edtDescricao, edtValor;
     ImageView imagemPeca;
     Spinner edtUnidade;
-    Button btnSalvar, btnDeletar;
+    Button btnSalvar, btnDeletar, btnAtualizar;
     Auto atm;
     final int GALLERY_REQUEST = 1;
 
@@ -67,6 +67,8 @@ public class AutoActivity extends AppCompatActivity {
         edtUnidade = findViewById(R.id.edtUnidade);
         btnSalvar = findViewById(R.id.btnSalvar);
         btnDeletar = findViewById(R.id.btnDeletar);
+        btnAtualizar = findViewById(R.id.btnAtualizar);
+
 
 
         Intent i = getIntent();
@@ -75,7 +77,10 @@ public class AutoActivity extends AppCompatActivity {
         Auto atm = (Auto) i.getSerializableExtra("auto");
         if (atm!=null){
             btnDeletar.setVisibility(View.VISIBLE);
+            btnSalvar.setVisibility(View.GONE);
+            btnAtualizar.setVisibility(View.VISIBLE);
             edtPeca.setText(atm.getNome());
+            edtDescricao.setText(atm.getDescricao());
             edtReferencia.setText(atm.getReferencia());
             edtQuantidade.setText(Integer.toString(atm.getQuantidade()));
             edtValor.setText(Float.toString(atm.getValor()));
@@ -86,6 +91,8 @@ public class AutoActivity extends AppCompatActivity {
 
             imagemPeca.setImageBitmap(decodedByte);
         } else {btnDeletar.setVisibility(View.GONE);
+                 btnSalvar.setVisibility(View.VISIBLE);
+                 btnAtualizar.setVisibility(View.GONE);
         }
     }
 
