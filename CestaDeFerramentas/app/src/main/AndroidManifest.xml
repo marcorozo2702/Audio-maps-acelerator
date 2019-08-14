@@ -3,7 +3,7 @@
     package="com.edu.senac.cestadeferramentas">
 
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <uses-feature
         android:name="android.hardware.camera.any"
@@ -14,11 +14,12 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_round"
         android:label="Cesta de Ferramentas"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.JogoDaVelhaActivity"></activity>
         <activity
             android:name=".ui.ListaAutoActivity"
             android:label="@string/title_activity_lista_auto"

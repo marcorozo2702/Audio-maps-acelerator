@@ -80,4 +80,10 @@ public class Principal extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void irParaJogoDaVelha(View V){
+        //Mandando para uma próxima tela
+        Intent i=new Intent(this, JogoDaVelhaActivity.class);
+        startActivity(i);
+    }
+
 }

@@ -84,6 +84,24 @@
             android:textColor="#ffffff" />
 
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnJogoDaVelha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:background="#4889C7"
+            android:onClick="irParaJogoDaVelha"
+            android:text="Jogo Da Velha"
+            android:textColor="#ffffff" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
