@@ -46,7 +46,7 @@ public class JogoDaVelhaActivity extends AppCompatActivity {
             X = !X;
         }
 
-        
+
 
         imagem.setClickable(false); //desabilita o click da imagem se ela ja ter sido mudada
     }
