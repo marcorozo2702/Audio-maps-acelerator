@@ -180,4 +180,15 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/restart"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#4B88C2"
+        android:text="NEW GAME"
+        android:onClick="newGame"
+        android:textColor="#FFFFFF" />
 </LinearLayout>

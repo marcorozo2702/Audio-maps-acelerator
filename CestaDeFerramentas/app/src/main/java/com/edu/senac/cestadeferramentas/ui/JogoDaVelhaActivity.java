@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +16,11 @@ import com.edu.senac.cestadeferramentas.helper.JogoVelha;
 
 public class JogoDaVelhaActivity extends AppCompatActivity {
     ImageView a1, a2, a3, b1, b2, b3, c1, c2, c3;
+
+    TextView resultadoX, resultadoO;
+
+    Integer x = 0;
+    Integer o = 0;
 
 
     boolean X = true;
@@ -50,7 +56,7 @@ public class JogoDaVelhaActivity extends AppCompatActivity {
 
         String vencedor = JogoVelha.obtemVencedor(tabuleiro);
         if (vencedor!=null){
-            Dialog dialog = new Dialog(this);
+            final Dialog dialog = new Dialog(this);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setTitle(null);
             dialog.setContentView(R.layout.resultado_jogo);
@@ -58,9 +64,57 @@ public class JogoDaVelhaActivity extends AppCompatActivity {
             TextView descricao=dialog.findViewById(R.id.descricao);
             descricao.setText("Parabéns! "+vencedor +" venceu!");
 
+            resultadoO = dialog.findViewById(R.id.resultadoO); //declarando o campo do dialog (resultado_jogo.xml)
+            resultadoX = dialog.findViewById(R.id.resultadoX);
+
+
+            Button restart = dialog.findViewById(R.id.restart); //declarando o campo do dialog (resultado_jogo.xml)
+            restart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) { //evento onclick passado de um botao
+                    newGame(null);
+                    dialog.dismiss();
+                }
+            });
+
+            if (vencedor == "X"){
+                x+= 1;
+            }
+            if (vencedor == "O"){ //incrementando de acordo com o vencedor
+                o+= 1;
+            }
+            resultadoX.setText(Integer.toString(x)); //setando o texto pro campo do layout
+            resultadoO.setText(Integer.toString(o));
+
             dialog.show();
         }
+    }
 
+    public void newGame(View view){
+
+        X = false;
+
+        tabuleiro = new String[9];
+
+        a1.setImageResource(R.drawable.ic_launcher); //setando a imagem padrão para TODOS os campos
+        a2.setImageResource(R.drawable.ic_launcher);
+        a3.setImageResource(R.drawable.ic_launcher);
+        b1.setImageResource(R.drawable.ic_launcher);
+        b2.setImageResource(R.drawable.ic_launcher);
+        b3.setImageResource(R.drawable.ic_launcher);
+        c1.setImageResource(R.drawable.ic_launcher);
+        c2.setImageResource(R.drawable.ic_launcher);
+        c3.setImageResource(R.drawable.ic_launcher);
+
+        a1.setClickable(true); //deixando a ImageView clicavel novamente
+        a2.setClickable(true);
+        a3.setClickable(true);
+        b1.setClickable(true);
+        b2.setClickable(true);
+        b3.setClickable(true);
+        c1.setClickable(true);
+        c2.setClickable(true);
+        c3.setClickable(true);
     }
 
     private int getPosition(int id){
