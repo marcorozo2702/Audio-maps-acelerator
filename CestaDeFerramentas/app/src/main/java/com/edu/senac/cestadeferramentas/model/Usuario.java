@@ -7,26 +7,25 @@ import java.io.Serializable;
 
 @DatabaseTable
 public class Usuario implements Serializable {
-    @DatabaseField(generatedId = true)
-    private Integer codigo;
 
     @DatabaseField(canBeNull = false)
-    private String email;
+    private String login;
 
-    public Integer getCodigo() {
-        return codigo;
+    @DatabaseField(canBeNull = false)
+    private String senha;
+
+    @DatabaseField(canBeNull = false)
+    private String nome;
+
+    @DatabaseField(generatedId = true)
+    private String codigo;
+
+    public String getLogin() {
+        return login;
     }
 
-    public void setCodigo(Integer codigo) {
-        this.codigo = codigo;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getSenha() {
@@ -37,6 +36,19 @@ public class Usuario implements Serializable {
         this.senha = senha;
     }
 
-    @DatabaseField(canBeNull = false)
-    private String senha;
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
 }
