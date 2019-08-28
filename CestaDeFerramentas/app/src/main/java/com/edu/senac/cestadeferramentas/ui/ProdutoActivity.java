@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -13,6 +14,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
@@ -25,11 +27,19 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.edu.senac.cestadeferramentas.R;
+import com.edu.senac.cestadeferramentas.constantes.Request;
 import com.edu.senac.cestadeferramentas.helper.DatabaseHelper;
 import com.edu.senac.cestadeferramentas.model.Produto;
+import com.edu.senac.cestadeferramentas.model.Usuario;
+import com.google.gson.Gson;
 import com.j256.ormlite.stmt.query.In;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +49,7 @@ public class ProdutoActivity extends AppCompatActivity {
     Spinner statusProduto;
     Button btnExcluir;
     Produto pro;
+    ProgressDialog progress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -168,7 +179,7 @@ public class ProdutoActivity extends AppCompatActivity {
     public void salvar(View v){
         String mensagem = validarCampos();
         if (mensagem.equals("")){
-            DatabaseHelper databaseHelper = new DatabaseHelper(this);
+          // DatabaseHelper databaseHelper = new DatabaseHelper(this);
 
             Produto pro=new Produto();
             pro.setFoto(getImagem());
@@ -176,8 +187,10 @@ public class ProdutoActivity extends AppCompatActivity {
             pro.setQuantidade(Integer.parseInt(quantidadeProduto.getText().toString()));
             pro.setStatus(statusProduto.getSelectedItem().toString().equals("COMPRADO")?"C":"N");
 
-            databaseHelper.salvarProduto(pro);
-            finish();
+            new salvarProduto().execute(pro);
+
+            //databaseHelper.salvarProduto(pro);
+            //finish();
         } else {
             mensagemErro(mensagem);
         }
@@ -232,4 +245,105 @@ public class ProdutoActivity extends AppCompatActivity {
         //cria o AlertDialog
         builder.create().show();
     }
+
+
+
+    private class salvarProduto extends AsyncTask<Produto, Void, List<Produto>> {
+
+        @Override
+        protected void  onPreExecute(){
+            super.onPreExecute();
+            progress = new ProgressDialog(ProdutoActivity.this);
+            progress.show();
+            progress.setCancelable(false);
+            progress.setContentView(R.layout.progres);
+
+        }
+
+        @Override
+        protected List<Produto> doInBackground(Produto... produtos) {
+            try {
+
+                Thread.sleep(3000);
+
+
+                URL url = new URL(Request.URL_REQUEST+"/ferramentas/salvarProduto");
+                HttpURLConnection urlConnection=(HttpURLConnection)url.openConnection();
+                urlConnection.setRequestMethod("POST");
+                urlConnection.setRequestProperty("Content-Type","application/json");
+                urlConnection.setRequestProperty("Accept","application/json");
+                urlConnection.setRequestProperty("Codigo","1");
+                urlConnection.setDoOutput(true);
+                urlConnection.setDoInput(true);
+
+
+                Gson gson=new Gson();
+                DataOutputStream outputStream= new DataOutputStream(urlConnection.getOutputStream());
+                String parametro = gson.toJson(produtos[0]);
+                Log.e("request", parametro);
+                outputStream.writeBytes(parametro);
+                outputStream.flush();
+                outputStream.close();
+
+                int codigoResposta = urlConnection.getResponseCode();
+
+                Log.e("request", "erro tal asiasoaksoa:"+codigoResposta);
+                if (codigoResposta==200){
+
+                    String jsonResposta= "";
+                    InputStreamReader inputStream=new InputStreamReader(urlConnection.getInputStream());
+                    BufferedReader reader=new BufferedReader(inputStream);
+
+                    String line="";
+                    while ((line=reader.readLine()) != null){
+                        jsonResposta+=line;
+                    }
+                    Log.e("request", jsonResposta);
+                    return null;
+
+                } else {
+                    return null;
+                }
+
+
+
+
+            }catch (Exception e){
+                Log.e("request", "erro");
+
+            }
+
+
+            return null;
+        }
+
+        @Override /// usuario vem do parametro do metodo doIndBackground
+        protected void onPostExecute(List<Produto> produto) {
+            progress.dismiss();
+
+
+
+            AlertDialog.Builder alertDialog=new AlertDialog.Builder(ProdutoActivity.this);
+            if (produto!= null){
+
+                alertDialog.setTitle("Atencao!");
+                alertDialog.setMessage("Erro");
+                //startActivity(new Intent(ProdutoActivity.this, Principal.class));
+                finish();
+
+            } else {
+                alertDialog.setTitle("Atenção!");
+                alertDialog.setMessage("Erro");
+            }
+            alertDialog.create().show();
+
+        }
+
+
+
+    }
+
+
+
+
 }

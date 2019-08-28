@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.edu.senac.cestadeferramentas.R;
+import com.edu.senac.cestadeferramentas.constantes.Request;
 import com.edu.senac.cestadeferramentas.helper.DatabaseHelper;
 import com.edu.senac.cestadeferramentas.model.Usuario;
 import com.google.gson.Gson;
@@ -41,9 +42,6 @@ public class MainActivity extends AppCompatActivity {
         editEmail = findViewById(R.id.edtEmail);
 
 
-        progress = new ProgressDialog(MainActivity.this);
-        progress.setCancelable(false);
-        progress.setMessage("loading");
     }
 
 
@@ -63,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Usuario e senha invalidos", Toast.LENGTH_SHORT).show();
         }*/
+
 
         String strLogin = editEmail.getText().toString();
         String strSenha = editSenha.getText().toString();
@@ -122,14 +121,25 @@ public class MainActivity extends AppCompatActivity {
     private class Login extends AsyncTask<Usuario, Void, Usuario>{
         @Override
         protected void  onPreExecute(){
+            super.onPreExecute();
+            progress = new ProgressDialog(MainActivity.this);
             progress.show();
+            progress.setCancelable(false);
+            progress.setContentView(R.layout.progres);
+
+
+
         }
 
         @Override //deve retornar um usuario para o metodo onPostExecute
                     //r3ecebe um objeto de usuario por parametro
         protected Usuario doInBackground(Usuario... usuarios){
             try {
-                URL url = new URL("http://10.10.196.114:8080/ferramentas/autenticacao");
+
+                Thread.sleep(5000);
+
+
+                URL url = new URL(Request.URL_REQUEST+"/ferramentas/autenticacao");
                 HttpURLConnection urlConnection=(HttpURLConnection)url.openConnection();
                 urlConnection.setRequestMethod("POST");
                 urlConnection.setRequestProperty("Content-Type","application/json");
@@ -181,11 +191,18 @@ public class MainActivity extends AppCompatActivity {
         @Override /// usuario vem do parametro do metodo doIndBackground
         protected void onPostExecute(Usuario usuario) {
             progress.dismiss();
+
+
+
             AlertDialog.Builder alertDialog=new AlertDialog.Builder(MainActivity.this);
             if (usuario!= null){
+                DatabaseHelper databaseHelper = new DatabaseHelper(MainActivity.this);
+                databaseHelper.salvarUsuario(usuario);
 
                 alertDialog.setTitle("Bem vindo!");
                 alertDialog.setMessage(usuario.getNome()+" é top e o Perico desumilde");
+                startActivity(new Intent(MainActivity.this, Principal.class));
+                finish();
 
             } else {
                 alertDialog.setTitle("Atenção!");
@@ -195,5 +212,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
+
 
 }
