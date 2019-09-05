@@ -136,7 +136,6 @@ public class MainActivity extends AppCompatActivity {
         protected Usuario doInBackground(Usuario... usuarios){
             try {
 
-                Thread.sleep(5000);
 
 
                 URL url = new URL(Request.URL_REQUEST+"/ferramentas/autenticacao");
@@ -144,6 +143,8 @@ public class MainActivity extends AppCompatActivity {
                 urlConnection.setRequestMethod("POST");
                 urlConnection.setRequestProperty("Content-Type","application/json");
                 urlConnection.setRequestProperty("Accept","application/json");
+
+
                 urlConnection.setDoOutput(true);
                 urlConnection.setDoInput(true);
 
@@ -201,14 +202,20 @@ public class MainActivity extends AppCompatActivity {
 
                 alertDialog.setTitle("Bem vindo!");
                 alertDialog.setMessage(usuario.getNome()+" é top e o Perico desumilde");
-                startActivity(new Intent(MainActivity.this, Principal.class));
+                alertDialog.create().show();
+
+
+                Intent intent = new  Intent(MainActivity.this, Principal.class);
+                intent.putExtra("usuario",usuario);
+                startActivity(intent);
                 finish();
 
             } else {
                 alertDialog.setTitle("Atenção!");
                 alertDialog.setMessage("Falha ao logar");
+                alertDialog.create().show();
+
             }
-            alertDialog.create().show();
 
         }
     }

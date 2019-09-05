@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.edu.senac.cestadeferramentas.R;
+import com.edu.senac.cestadeferramentas.model.Usuario;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -15,11 +16,17 @@ import android.view.MenuItem;
 import android.view.View;
 
 public class Principal extends AppCompatActivity {
+    Usuario usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
+
+        Intent intent = getIntent();
+        usuario = (Usuario) intent.getSerializableExtra("usuario");
+
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -71,6 +78,7 @@ public class Principal extends AppCompatActivity {
     public void irParaLista(View V){
         //Mandando para uma próxima tela
         Intent i=new Intent(this, ListaProdutos.class);
+        i.putExtra("usuario",usuario);
         startActivity(i);
     }
 

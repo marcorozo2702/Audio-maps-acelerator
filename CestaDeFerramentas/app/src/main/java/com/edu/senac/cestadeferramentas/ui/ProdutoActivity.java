@@ -32,12 +32,14 @@ import com.edu.senac.cestadeferramentas.helper.DatabaseHelper;
 import com.edu.senac.cestadeferramentas.model.Produto;
 import com.edu.senac.cestadeferramentas.model.Usuario;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.j256.ormlite.stmt.query.In;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -50,6 +52,8 @@ public class ProdutoActivity extends AppCompatActivity {
     Button btnExcluir;
     Produto pro;
     ProgressDialog progress;
+
+    Usuario usuario;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +65,10 @@ public class ProdutoActivity extends AppCompatActivity {
         statusProduto=findViewById(R.id.statusProduto);
         btnExcluir=findViewById(R.id.btnExcluir);
 
+
+
+        Intent thisintent = getIntent();
+        usuario=(Usuario) thisintent.getSerializableExtra("usuario");
 
 
         Intent i = getIntent();
@@ -264,7 +272,6 @@ public class ProdutoActivity extends AppCompatActivity {
         protected List<Produto> doInBackground(Produto... produtos) {
             try {
 
-                Thread.sleep(3000);
 
 
                 URL url = new URL(Request.URL_REQUEST+"/ferramentas/salvarProduto");
@@ -272,7 +279,7 @@ public class ProdutoActivity extends AppCompatActivity {
                 urlConnection.setRequestMethod("POST");
                 urlConnection.setRequestProperty("Content-Type","application/json");
                 urlConnection.setRequestProperty("Accept","application/json");
-                urlConnection.setRequestProperty("Codigo","1");
+                urlConnection.setRequestProperty("codigo",usuario.getCodigo().toString());
                 urlConnection.setDoOutput(true);
                 urlConnection.setDoInput(true);
 
@@ -299,7 +306,9 @@ public class ProdutoActivity extends AppCompatActivity {
                         jsonResposta+=line;
                     }
                     Log.e("request", jsonResposta);
-                    return null;
+                    Type listType = new TypeToken<ArrayList<Produto>>(){}.getType();
+
+                    return gson.fromJson(jsonResposta, listType);
 
                 } else {
                     return null;
@@ -309,7 +318,7 @@ public class ProdutoActivity extends AppCompatActivity {
 
 
             }catch (Exception e){
-                Log.e("request", "erro");
+                Log.e("request", "erro 666");
 
             }
 
@@ -327,14 +336,21 @@ public class ProdutoActivity extends AppCompatActivity {
             if (produto!= null){
 
                 alertDialog.setTitle("Atencao!");
-                alertDialog.setMessage("Erro");
-                //startActivity(new Intent(ProdutoActivity.this, Principal.class));
+                alertDialog.setMessage("Sucesso");
+
+
+
+
+
+
+
+
+
                 finish();
 
-            } else {
-                alertDialog.setTitle("Atenção!");
-                alertDialog.setMessage("Erro");
-            }
+            }else
+            {   alertDialog.setTitle("Atencao!");
+                alertDialog.setMessage("Erro");}
             alertDialog.create().show();
 
         }

@@ -18,7 +18,7 @@ public class Usuario implements Serializable {
     private String nome;
 
     @DatabaseField(generatedId = true)
-    private String codigo;
+    private Integer codigo;
 
     public String getLogin() {
         return login;
@@ -44,11 +44,11 @@ public class Usuario implements Serializable {
         this.nome = nome;
     }
 
-    public String getCodigo() {
+    public Integer getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(String codigo) {
+    public void setCodigo(Integer codigo) {
         this.codigo = codigo;
     }
 }

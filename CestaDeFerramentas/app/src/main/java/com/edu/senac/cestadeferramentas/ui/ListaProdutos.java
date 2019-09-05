@@ -10,9 +10,11 @@ import com.edu.senac.cestadeferramentas.constantes.Request;
 import com.edu.senac.cestadeferramentas.helper.AdapterList;
 import com.edu.senac.cestadeferramentas.helper.DatabaseHelper;
 import com.edu.senac.cestadeferramentas.model.Produto;
+import com.edu.senac.cestadeferramentas.model.Usuario;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.j256.ormlite.stmt.query.In;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,13 +41,20 @@ public class ListaProdutos extends AppCompatActivity {
     List<Produto> produtos;
     ProgressDialog progress;
     DatabaseHelper databaseHelper;
+    Usuario usuario;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_produtos);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Intent thisintent = getIntent();
+        usuario = (Usuario) thisintent.getSerializableExtra("usuario");
+
+
         final Intent intent=new Intent(this, ProdutoActivity.class);
+        intent.putExtra("usuario", usuario);
 
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -106,6 +115,7 @@ public class ListaProdutos extends AppCompatActivity {
 
         @Override
         protected List<Produto> doInBackground(Void... produtos) {
+
             try {
 
                 Thread.sleep(3000);
@@ -116,7 +126,12 @@ public class ListaProdutos extends AppCompatActivity {
                 urlConnection.setRequestMethod("GET");
                 urlConnection.setRequestProperty("Content-Type","application/json");
                 urlConnection.setRequestProperty("Accept","application/json");
-                urlConnection.setRequestProperty("Codigo","1");
+                //urlConnection.setRequestProperty("codigo","1");
+                urlConnection.setRequestProperty("codigo",usuario.getCodigo().toString());
+
+
+
+
                 /*urlConnection.setDoOutput(true);
                 urlConnection.setDoInput(true);*/
 
@@ -161,10 +176,12 @@ public class ListaProdutos extends AppCompatActivity {
         @Override /// usuario vem do parametro do metodo doIndBackground
         protected void onPostExecute(List<Produto> produto) {
             progress.dismiss();
-            AdapterList adapterList = (AdapterList) listaProdutos.getAdapter();
 
-            adapterList.atualizarProdutos(produto);
+            if (produto!=null) {
+                AdapterList adapterList = (AdapterList) listaProdutos.getAdapter();
 
+                adapterList.atualizarProdutos(produto);
+            }
         }
 
 

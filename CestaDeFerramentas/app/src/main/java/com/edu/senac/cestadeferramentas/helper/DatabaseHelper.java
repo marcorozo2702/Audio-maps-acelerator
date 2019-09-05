@@ -92,7 +92,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return produtoDao;
     }
 
-    public void salvarProduto(Produto produto) {
+    public void   salvarProduto(Produto produto) {
 
         try {
             getProdutoDao().create(produto);
