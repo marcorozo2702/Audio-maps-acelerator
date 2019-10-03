@@ -204,7 +204,6 @@ public class MainActivity extends AppCompatActivity {
                 alertDialog.setMessage(usuario.getNome()+" é top e o Perico desumilde");
                 alertDialog.create().show();
 
-
                 Intent intent = new  Intent(MainActivity.this, Principal.class);
                 intent.putExtra("usuario",usuario);
                 startActivity(intent);

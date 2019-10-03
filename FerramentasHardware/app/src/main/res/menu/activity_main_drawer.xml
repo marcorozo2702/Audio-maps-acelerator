@@ -6,20 +6,20 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/home"
-            android:icon="@drawable/home"
-            android:title="Home" />
+            android:icon="@drawable/audio"
+            android:title="@string/menu_home" />
         <item
             android:id="@+id/audio"
-            android:icon="@drawable/microphone"
-            android:title="Audio" />
+            android:icon="@drawable/audio"
+            android:title="@string/menu_home" />
         <item
             android:id="@+id/acelerometro"
-            android:icon="@drawable/speed"
-            android:title="Acelerometro" />
+            android:icon="@drawable/acelerometro"
+            android:title="@string/menu_gallery" />
         <item
-            android:id="@+id/geolocalizacao"
-            android:icon="@drawable/gps"
-            android:title="Geolocalizaçãp" />
+            android:id="@+id/localizacao"
+            android:icon="@drawable/localizacao"
+            android:title="@string/menu_tools" />
     </group>
 
 </menu>

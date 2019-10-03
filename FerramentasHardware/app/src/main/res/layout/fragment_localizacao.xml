@@ -3,9 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GeolocalizacaoFragment">
+    tools:context=".LocalizacaoFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,7 +26,7 @@
                 android:text="Longitude:" />
 
             <TextView
-                android:id="@+id/longitude"
+                android:id="@+id/TextViewLongitude"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0" />
@@ -43,7 +45,7 @@
                 android:text="Latitude:" />
 
             <TextView
-                android:id="@+id/latitude"
+                android:id="@+id/TextViewLatitude"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -51,26 +53,12 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/buttonZap"
-                android:layout_width="199dp"
-                android:layout_height="match_parent"
-                android:width="1dp"
-                android:onClick="enviar"
-                android:text="Enviar" />
-
-            <Button
-                android:id="@+id/buttonMap"
-                android:width="1dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="SSSS" />
-        </LinearLayout>
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="buscar" />
     </LinearLayout>
 
 </FrameLayout>

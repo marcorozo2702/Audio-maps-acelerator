@@ -1,4 +1,4 @@
-package com.edu.senac.ferramentashardware;
+package com.edu.senac.ferramentas2;
 
 import android.os.Bundle;
 
@@ -23,13 +23,14 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.view.Menu;
 
-public class HomeActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private boolean viewIsAtHome=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -54,31 +55,52 @@ public class HomeActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
+        }
+        if(!viewIsAtHome){
+            displayView(R.id.home);
+        }else{
+            moveTaskToBack(true);
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    private void displayView(int id) {
+
+        Fragment fragment = null;
+        String title = getString(R.string.app_name);
+
+        if(id == R.id.home){
+            fragment = new HomeFragment();
+            title = "Home";
+            viewIsAtHome=true;
+        }else if (id == R.id.audio){
+            fragment = new AudioFragment();
+            title="Audio";
+            viewIsAtHome=false;
+        }else if (id == R.id.acelerometro){
+            fragment = new AcelerometroFragment();
+            title="Acelerometro";
+            viewIsAtHome=false;
+        }else if (id == R.id.localizacao){
+            fragment = new GeolocalizacaoFragment();
+            title="Localização";
+            viewIsAtHome=false;
         }
 
-        return super.onOptionsItemSelected(item);
+        if (getSupportActionBar() !=null){
+            getSupportActionBar().setTitle(title);
+        }
+
+        if(fragment !=null){
+            FragmentTransaction ft= getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content_frame, fragment);
+            ft.commit();
+        }
+
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerLayout.closeDrawer(GravityCompat.START);
+
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -87,41 +109,9 @@ public class HomeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        discplayView(id);
 
+
+        displayView(id);
         return true;
-    }
-
-    public void discplayView(int id){
-        Fragment fragment = null;
-        String title = getString(R.string.app_name);
-
-        if (id == R.id.home){
-            fragment = new HomeFragment();
-            title="Home";
-        } else if (id == R.id.audio){
-            fragment = new AudioFragment();
-            title="Audio";
-        } else if (id == R.id.acelerometro){
-            fragment = new AcelerometroFragment();
-            title="Acelerometro";
-        } else if (id == R.id.geolocalizacao){
-            fragment = new GeolocalizacaoFragment();
-            title="Geolocalizacao";
-        }
-
-
-        if (getSupportActionBar() != null){
-            getSupportActionBar().setTitle(title);
-        }
-
-        if (fragment !=null){
-            FragmentTransaction ft= getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.content_frame, fragment);
-            ft.commit();
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
     }
 }
